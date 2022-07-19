@@ -13,12 +13,15 @@ function App() {
   }, [])
 
   // helpers
+
+  //startGame is using setDens on in an interval of every 1.5 seconds to generate new placement for moles 
   function startGame() {
     setInterval(() => {
       setDens(getDensState())
     }, 1500)
   }
 
+  //creates and returns a new Array with 9 objects with isMoleVisible property set to True or False randomly using Math.random()
   function getDensState() {
     return new Array(9).fill({}).map(() => {
       return { 
@@ -27,6 +30,7 @@ function App() {
     })
   }
 
+  // this is using the State Setter for points variable to add 1 point to points variable when image is clicked using this function for onClick passed to the Mole component
   function onMoleWhacked() {
     setPoints(points + 1)
   }
@@ -34,9 +38,12 @@ function App() {
   // renders
   const denElements = dens.map((den, index) => {
     return (
-      <Mole key={`mole-${index}`} />
+      <Mole key={`mole-${index}`} dens = {den} handleClick= {onMoleWhacked}  />
     )
   })
+
+  console.log(dens);
+ 
 
   return (
     <div className="App">
